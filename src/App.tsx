@@ -1,15 +1,11 @@
 import * as React from "react";
 
-import { Button } from "libs/components";
+import { Text } from "libs/components";
+import { RouterProvider } from "react-router-dom";
+import { router } from "router";
 
 function App() {
-  return (
-    <div>
-      <Button appearance={"primary"} size={"lg"}>
-        Login
-      </Button>
-    </div>
-  );
+  return <RouterProvider router={router} fallbackElement={<Text>Loading</Text>} />;
 }
 
 export default App;
