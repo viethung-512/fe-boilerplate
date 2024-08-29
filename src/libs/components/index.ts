@@ -7,6 +7,9 @@ export type { ButtonProps, ButtonGroupProps, IconButtonProps } from "./Button";
 export { Divider } from "./Divider";
 export type { DividerProps } from "./Divider";
 
+export { FieldWrapper, InputText, InputNumber, TextField } from "./Input";
+export type { FieldWrapperProps, InputTextProps, InputNumberProps, BaseInputProps, BaseInputFieldProps, TextFieldProps } from "./Input";
+
 export { Container, Content, Footer, Header, Sidebar } from "./Layout";
 export type { ContainerProps, ContentProps, FooterProps, HeaderProps, SidebarProps } from "./Layout";
 

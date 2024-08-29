@@ -1,0 +1,49 @@
+/* Custom your own input style here */
+
+:root {
+    --input-bg-success: var(--rs-bg-success);
+    --input-bg-alert: var(--rs-bg-error);
+    --input-bg-warning: var(--rs-bg-warning);
+
+    --input-border-success: var(--rs-state-success);
+    --input-border-alert: var(--rs-state-error);
+    --input-border-warning: var(--rs-state-warning);
+}
+
+.input-wrapper {
+    border-radius: 8px !important;
+    outline: none !important;
+    overflow: hidden;
+}
+
+/* INPUT TEXT */
+.input-positive {
+    background-color: var(--input-bg-success) !important;
+    border: 1px solid var(--input-border-success) !important;
+}
+
+.input-alert {
+    background-color: var(--input-bg-alert) !important;
+    border: 1px solid var(--input-border-alert) !important;
+}
+
+.input-warning {
+    background-color: var(--input-bg-warning) !important;
+    border: 1px solid var(--input-border-warning) !important;
+}
+
+/* INPUT NUMBER */
+.input-number-positive > input {
+    background-color: var(--input-bg-success) !important;
+    border: 1px solid var(--input-border-success) !important;
+}
+
+.input-number-alert > input {
+    background-color: var(--input-bg-alert) !important;
+    border: 1px solid var(--input-border-alert) !important;
+}
+
+.input-number-warning > input {
+    background-color: var(--input-bg-warning) !important;
+    border: 1px solid var(--input-border-warning) !important;
+}

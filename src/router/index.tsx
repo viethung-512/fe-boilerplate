@@ -5,6 +5,7 @@ import { authAPI } from "api/authAPI";
 import { decodeString, encodeString } from "helper/stringHelper";
 import { LoginPage } from "features/auth/LoginPage";
 import { AuthLayout } from "components/AuthLayout";
+import { InputNumber, InputText, TextField, VerticalStack } from "libs/components";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +24,21 @@ export const router = createBrowserRouter([
       );
     },
     children: [
-      { path: "", Component: () => <span>Hello</span> },
+      {
+        path: "",
+        Component: () => (
+          <VerticalStack spacing={16} style={{ padding: "16px" }}>
+            <InputText statusState={"positive"} />
+            <InputText statusState={"alert"} />
+            <InputText statusState={"warning"} />
+            <TextField fieldLabel={"User name"} placeholder={"Enter username"} fieldLayout={"vertical"} helperText={"This is error"} statusState={"warning"} />
+            <TextField fieldLabel={"User name"} placeholder={"Enter username"} fieldLayout={"horizontal"} helperText={"This is error"} statusState={"warning"} />
+            <InputNumber statusState={"positive"} />
+            <InputNumber statusState={"alert"} />
+            <InputNumber statusState={"warning"} />
+          </VerticalStack>
+        ),
+      },
       { path: "/feature-1", Component: () => <span>Feature 1</span> },
       { path: "/feature-2", Component: () => <span>Feature 2</span> },
       { path: "/feature-3", Component: () => <span>Feature 3</span> },
