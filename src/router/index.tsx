@@ -4,7 +4,7 @@ import queryString from "query-string";
 import { authAPI } from "api/authAPI";
 import { decodeString, encodeString } from "helper/stringHelper";
 import { LoginPage } from "features/auth/LoginPage";
-import { AuthLayout } from "components/AuthLayout";
+import { AuthLayout } from "components/layout/AuthLayout";
 
 export const router = createBrowserRouter([
   {
