@@ -1,11 +1,11 @@
-import * as React from "react";
+import { DependencyList, useEffect, useRef, useState } from "react";
 
-export function useElementSize(...deps: React.DependencyList) {
-  const [width, setWidth] = React.useState<any>(0);
-  const [height, setHeight] = React.useState<any>(0);
-  const elementRef = React.useRef<any>(null);
+export function useElementSize(...deps: DependencyList) {
+  const [width, setWidth] = useState<any>(0);
+  const [height, setHeight] = useState<any>(0);
+  const elementRef = useRef<any>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
       if (elementRef.current) {
         setWidth(elementRef.current.offsetWidth);

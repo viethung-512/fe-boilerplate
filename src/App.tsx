@@ -1,11 +1,15 @@
-import * as React from "react";
-
-import { Text } from "libs/components";
+import { ThemeProvider } from "@mui/material";
 import { RouterProvider } from "react-router-dom";
+
 import { router } from "router";
+import { theme } from "utils/theme";
 
 function App() {
-  return <RouterProvider router={router} fallbackElement={<Text>Loading</Text>} />;
+  return (
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} fallbackElement={<span>Loading</span>} />
+    </ThemeProvider>
+  );
 }
 
 export default App;

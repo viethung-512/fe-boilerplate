@@ -1,16 +1,18 @@
-import * as React from "react";
+import { FC } from "react";
+
+import { Button, Container, Stack } from "@mui/material";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { Button, Container, Content, Footer, Header, HorizontalStack, Sidebar } from "libs/components";
+
 import { authAPI } from "api/authAPI";
 
 export interface AuthLayoutProps {}
 
-export const AuthLayout: React.FC<AuthLayoutProps> = () => {
+export const AuthLayout: FC<AuthLayoutProps> = () => {
   const navigate = useNavigate();
 
   return (
     <Container>
-      <Sidebar>
+      <div>
         <ul>
           <li>
             <Link to={"/"}>Dashboard</Link>
@@ -28,12 +30,11 @@ export const AuthLayout: React.FC<AuthLayoutProps> = () => {
             <Link to={"/feature-4"}>Feature 4</Link>
           </li>
         </ul>
-      </Sidebar>
+      </div>
       <Container>
-        <Header>
-          <HorizontalStack justifyContent={"flex-end"}>
+        <div>
+          <Stack direction={"row"} justifyContent={"flex-end"}>
             <Button
-              appearance={"primary"}
               onClick={async () => {
                 await authAPI.logout();
                 navigate("/login");
@@ -42,12 +43,11 @@ export const AuthLayout: React.FC<AuthLayoutProps> = () => {
             >
               Logout
             </Button>
-          </HorizontalStack>
-        </Header>
-        <Content>
+          </Stack>
+        </div>
+        <div>
           <Outlet />
-        </Content>
-        <Footer>Footer</Footer>
+        </div>
       </Container>
     </Container>
   );
