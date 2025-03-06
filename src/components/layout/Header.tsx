@@ -5,7 +5,7 @@ import { AppBar as MUIAppBar, AppBarProps as MUIAppBarProps, Button, IconButton,
 import { Menu as MenuIcon } from "@mui/icons-material";
 
 import { SIDEBAR_WIDTH } from "utils/constants";
-import { authAPI } from "api/authAPI";
+import { useLogout } from "query/auth/useLogout";
 
 export type HeaderProps = MUIAppBarProps & {
   isSidebarOpen: boolean;
@@ -39,9 +39,12 @@ const AppBar = styled(MUIAppBar, {
 
 export const Header: FC<HeaderProps> = ({ isSidebarOpen, onSidebarToggle }) => {
   const navigate = useNavigate();
+  const { logout, isLoading } = useLogout(() => {
+    navigate("/login");
+  });
 
   return (
-    <AppBar position={"fixed"} isSidebarOpen={isSidebarOpen} onSidebarToggle={onSidebarToggle}>
+    <AppBar position={"fixed"} color={"transparent"} isSidebarOpen={isSidebarOpen} onSidebarToggle={onSidebarToggle}>
       <Toolbar>
         <IconButton
           color={"inherit"}
@@ -60,15 +63,7 @@ export const Header: FC<HeaderProps> = ({ isSidebarOpen, onSidebarToggle }) => {
         <Typography variant={"h6"} noWrap component={"div"}>
           FE Boilerplate
         </Typography>
-        <Button
-          variant={"contained"}
-          color={"error"}
-          onClick={async () => {
-            await authAPI.logout();
-            navigate("/login");
-          }}
-          sx={{ ml: "auto" }}
-        >
+        <Button variant={"contained"} color={"primary"} onClick={() => logout()} sx={{ ml: "auto" }} loading={isLoading}>
           Logout
         </Button>
       </Toolbar>

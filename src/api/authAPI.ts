@@ -1,13 +1,15 @@
 import { BaseAPI } from "api/baseAPI";
 import { sleep } from "helper/sleep";
 import { localstorageConfig } from "config";
+import { LoginInput, LoginOutput } from "types/auth.type";
 
 class AuthAPI extends BaseAPI {
   BASE_URL = "/auth";
 
-  async login(username: string) {
+  async login(input: LoginInput): Promise<LoginOutput> {
+    const { username } = input;
     await sleep();
-    localStorage.setItem(localstorageConfig.keys.AUTH_USERNAME, username);
+
     return { username, token: "" };
   }
 

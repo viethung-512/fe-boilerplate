@@ -1,32 +1,46 @@
-import { FC, useState } from "react";
-import { Button } from "@mui/material";
+import { FC } from "react";
+import { Button, Container, Stack } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { FormProvider, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-import { authAPI } from "api/authAPI";
 import { decodeString } from "helper/stringHelper";
+import { LoginInput } from "types/auth.type";
+import { HookFormInputTextField } from "components/libs/react-hook-form";
+import { useLogin } from "query/auth/useLogin";
+import { LOGIN_VALIDATION_SCHEMA } from "features/auth/utils/validationSchema";
 
 export interface LoginPageProps {}
 
 export const LoginPage: FC<LoginPageProps> = () => {
-  const [username, setUserName] = useState("");
-  const [searchParams] = useSearchParams();
-  const redirectUrlInQuery = searchParams.get("redirectUrl");
   const navigate = useNavigate();
 
+  const [searchParams] = useSearchParams();
+  const redirectUrlInQuery = searchParams.get("redirectUrl");
+
+  const formMethods = useForm<LoginInput>({
+    defaultValues: { username: "" },
+    resolver: yupResolver(LOGIN_VALIDATION_SCHEMA),
+    mode: "onChange",
+  });
+
+  const { login, isLoading } = useLogin(() => {
+    const redirectUrl = redirectUrlInQuery ? decodeString(redirectUrlInQuery) : "/";
+    navigate(redirectUrl);
+  });
+
   return (
-    <div>
-      <div>
-        <input value={username} onChange={(e) => setUserName(e.target.value)} />
-        <Button
-          onClick={async () => {
-            await authAPI.login(username);
-            const redirectUrl = redirectUrlInQuery ? decodeString(redirectUrlInQuery) : "/";
-            navigate(redirectUrl);
-          }}
-        >
-          Submit
-        </Button>
-      </div>
-    </div>
+    <Container sx={{ py: 4 }}>
+      <FormProvider {...formMethods}>
+        <form onSubmit={formMethods.handleSubmit((values) => login(values))}>
+          <Stack spacing={2} width={500} sx={{ mx: "auto" }}>
+            <HookFormInputTextField fieldName={"username"} label={"Username"} placeholder={"Enter value"} />
+            <Button loading={isLoading} type={"submit"} variant={"contained"} color={"primary"} fullWidth={true} size={"large"}>
+              Submit
+            </Button>
+          </Stack>
+        </form>
+      </FormProvider>
+    </Container>
   );
 };
