@@ -26,5 +26,15 @@ export function useNotification() {
       },
       [setSnackbarProps],
     ),
+    showWarning: useCallback(
+      (props: Omit<GlobalNotificationProps, "color" | "isOpen">) => {
+        setSnackbarProps({
+          isOpen: true,
+          color: "warning",
+          ...props,
+        });
+      },
+      [setSnackbarProps],
+    ),
   };
 }

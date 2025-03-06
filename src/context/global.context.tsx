@@ -30,16 +30,8 @@ export const GlobalProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <GlobalContext.Provider value={{ snackbarProps, setSnackbarProps }}>
       {children}
-      <Snackbar
-        open={snackbarProps.isOpen}
-        autoHideDuration={500}
-        onClose={handleCloseNotification}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-      >
-        <Alert onClose={handleCloseNotification} severity="success" variant="filled" sx={{ width: "100%" }}>
+      <Snackbar open={snackbarProps.isOpen} autoHideDuration={2000} onClose={handleCloseNotification} anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
+        <Alert onClose={handleCloseNotification} severity={snackbarProps.color} variant={snackbarProps.variant} sx={{ width: "100%" }}>
           {snackbarProps.message}
         </Alert>
       </Snackbar>

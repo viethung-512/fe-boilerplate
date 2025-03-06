@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Button, Container, Stack } from "@mui/material";
+import { Button, Container, Stack, Typography } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,7 +19,7 @@ export const LoginPage: FC<LoginPageProps> = () => {
   const redirectUrlInQuery = searchParams.get("redirectUrl");
 
   const formMethods = useForm<LoginInput>({
-    defaultValues: { username: "" },
+    defaultValues: { username: "", password: "" },
     resolver: yupResolver(LOGIN_VALIDATION_SCHEMA),
     mode: "onChange",
   });
@@ -33,8 +33,12 @@ export const LoginPage: FC<LoginPageProps> = () => {
     <Container sx={{ py: 4 }}>
       <FormProvider {...formMethods}>
         <form onSubmit={formMethods.handleSubmit((values) => login(values))}>
-          <Stack spacing={2} width={500} sx={{ mx: "auto" }}>
+          <Stack spacing={2} width={500} sx={{ mx: "auto", px: 2, py: 4, boxShadow: (theme) => theme.shadows[2], borderRadius: 3 }}>
+            <Typography variant={"h4"} textAlign={"center"}>
+              Login
+            </Typography>
             <HookFormInputTextField fieldName={"username"} label={"Username"} placeholder={"Enter value"} />
+            <HookFormInputTextField fieldName={"password"} label={"Password"} placeholder={"Enter value"} type={"password"} />
             <Button loading={isLoading} type={"submit"} variant={"contained"} color={"primary"} fullWidth={true} size={"large"}>
               Submit
             </Button>

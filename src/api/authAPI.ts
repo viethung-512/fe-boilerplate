@@ -7,10 +7,14 @@ class AuthAPI extends BaseAPI {
   BASE_URL = "/auth";
 
   async login(input: LoginInput): Promise<LoginOutput> {
-    const { username } = input;
+    const { username, password } = input;
     await sleep();
 
-    return { username, token: "" };
+    if (username === "admin" && password === "admin123@") {
+      return { username, token: "" };
+    }
+
+    throw new Error("Unauthorized");
   }
 
   async getMe() {
